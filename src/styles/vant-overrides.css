@@ -1,0 +1,429 @@
+/* ===================================================================
+   Vant 组件在 React 下的补丁样式
+   Vant 的 CSS 本身可用，这里只补齐少量布局/颜色覆盖，
+   以及用原生元素模拟的组件（Cell / SwipeCell / Popup / Tabbar / Toast）的样式。
+   =================================================================== */
+
+/* ---------- NavBar ---------- */
+.van-nav-bar {
+  position: relative;
+  flex: 0 0 auto;
+  background: #fff;
+  user-select: none;
+  z-index: 2;
+}
+
+.van-nav-bar__content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 46px;
+}
+
+.van-nav-bar__left,
+.van-nav-bar__right {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 14px;
+  color: #1989fa;
+  cursor: pointer;
+}
+
+.van-nav-bar__right {
+  min-width: 60px;
+}
+
+.van-nav-bar__arrow {
+  margin-right: 4px;
+  font-size: 16px;
+}
+
+.van-nav-bar__title {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: #323233;
+  text-align: center;
+}
+
+/* ---------- 页面布局 ---------- */
+.page-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ---------- Cell ---------- */
+.van-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  background: #fff;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #323233;
+}
+
+.van-cell--border::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: #ebedf0;
+  transform: scaleY(0.5);
+}
+
+.van-cell--clickable:active {
+  background: #f2f3f5;
+}
+
+.van-cell__icon-slot {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.van-cell__title {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.van-cell__label {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #969799;
+}
+
+.van-cell__value {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  color: #969799;
+}
+
+/* 单元格组：模拟 inset 卡片 */
+.van-cell-group--inset,
+.list-group {
+  margin: 0 12px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.list-group {
+  margin: 0 12px 8px;
+}
+
+/* ---------- SwipeCell ---------- */
+.swipe-cell {
+  position: relative;
+  overflow: hidden;
+}
+
+.swipe-cell__content {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  will-change: transform;
+}
+
+.swipe-cell__right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.swipe-cell__right-inner {
+  height: 100%;
+}
+
+.swipe-delete {
+  width: 100%;
+  height: 100%;
+  min-height: 60px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  font-size: 14px;
+  color: #fff;
+  background: #ee0a24;
+  cursor: pointer;
+}
+
+.swipe-delete .van-button__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* ---------- 按钮 ---------- */
+.van-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  height: 44px;
+  border: 1px solid #ebedf0;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 14px;
+  color: #323233;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.van-button:active {
+  opacity: 0.85;
+}
+
+.van-button:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.van-button__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.van-button--block {
+  display: flex;
+  width: 100%;
+}
+
+.van-button--round {
+  border-radius: 999px;
+}
+
+.van-button--large {
+  height: 50px;
+  font-size: 16px;
+}
+
+.van-button--primary {
+  color: #fff;
+  background: #1989fa;
+  border-color: #1989fa;
+}
+
+.van-button--danger {
+  color: #fff;
+  background: #ee0a24;
+  border-color: #ee0a24;
+}
+
+.van-button--plain {
+  background: #fff;
+  color: #323233;
+}
+
+.van-button__loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 加载圈 */
+.van-loading__spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: van-spin 0.8s linear infinite;
+}
+
+@keyframes van-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Popup ---------- */
+.van-popup__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  animation: van-fade-in 0.25s ease;
+}
+
+.van-popup {
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  animation: van-slide-up 0.28s ease;
+}
+
+.van-popup--bottom {
+  border-radius: 16px 16px 0 0;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@keyframes van-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes van-slide-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+/* ---------- 表单字段 ---------- */
+.van-field {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: #fff;
+  font-size: 14px;
+}
+
+.van-field__label {
+  flex: 0 0 60px;
+  color: #646566;
+}
+
+.van-field__value {
+  flex: 1;
+  min-width: 0;
+}
+
+.van-field__body {
+  display: flex;
+  align-items: center;
+}
+
+.van-field__control {
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #323233;
+  font-family: inherit;
+}
+
+.van-field__control::placeholder {
+  color: #c8c9cc;
+}
+
+/* ---------- Tabbar ---------- */
+.van-tabbar {
+  flex: 0 0 auto;
+  display: flex;
+  height: 50px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: #fff;
+  border-top: 1px solid #ebedf0;
+}
+
+.van-tabbar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 12px;
+  color: #646566;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.van-tabbar-item__icon {
+  font-size: 20px;
+}
+
+/* ---------- Empty ---------- */
+.van-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 0;
+}
+
+.van-empty__image {
+  width: 140px;
+  height: 140px;
+  opacity: 0.9;
+}
+
+.van-empty__description {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: #969799;
+}
+
+/* ---------- Toast ---------- */
+#react-toast-container {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  pointer-events: none;
+}
+
+.van-toast {
+  position: fixed;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 70%;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.4;
+  word-break: break-all;
+  animation: van-fade-in 0.2s ease;
+}
+
+.van-toast--bottom {
+  bottom: 15%;
+  transform: translateX(-50%);
+}
+
+.van-toast--middle {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.van-toast--top {
+  top: 15%;
+  transform: translateX(-50%);
+}
+
+/* ---------- 文本省略 ---------- */
+.van-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
